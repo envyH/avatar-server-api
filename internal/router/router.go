@@ -4,26 +4,16 @@ import (
 	"avatar/internal/router/farm"
 	"avatar/internal/router/notification"
 	"avatar/internal/router/player"
-	"os"
-	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 )
-
-func getTemplatePath() string {
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	return filepath.Join(dir, "templates", "*")
-}
 
 // SetupRouter initializes and returns the router
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
 	// Load HTML templates from the "templates" directory
-	r.LoadHTMLGlob(getTemplatePath())
+	r.LoadHTMLGlob("templates/*")
 
 	r.GET("/", func(c *gin.Context) {
 		// Render the "index.html" file
