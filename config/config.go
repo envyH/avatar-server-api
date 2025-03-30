@@ -14,9 +14,12 @@ type Config struct {
 }
 
 func LoadConfig() Config {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Không thể tải file .env: %v", err)
+	// Chỉ load file .env khi chạy local (khi biến môi trường RENDER không tồn tại)
+	if os.Getenv("RENDER") == "" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Println("Không tìm thấy file .env, sử dụng biến môi trường hệ thống")
+		}
 	}
 
 	return Config{
