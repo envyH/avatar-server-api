@@ -1,7 +1,9 @@
 package router
 
 import (
-	"avatar/internal/controller"
+	"avatar/internal/router/farm"
+	"avatar/internal/router/notification"
+	"avatar/internal/router/player"
 
 	"github.com/gin-gonic/gin"
 )
@@ -26,8 +28,10 @@ func SetupRouter() *gin.Engine {
 				"message": message,
 			})
 		})
-		api.GET("/players", controller.GetPlayers)
-		api.POST("/update-score", controller.UpdateScore)
+		// Register player routes
+		player.RegisterPlayerRoutes(api)
+		notification.NotificationRoutes(api)
+		farm.FarmRoutes(api)
 	}
 
 	return r
