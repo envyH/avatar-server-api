@@ -2,6 +2,7 @@ package router
 
 import (
 	"avatar/internal/router/farm"
+	"avatar/internal/router/global"
 	"avatar/internal/router/notification"
 	"avatar/internal/router/player"
 
@@ -12,11 +13,9 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	// Load HTML templates from the "templates" directory
 	r.LoadHTMLGlob("templates/*")
 
 	r.GET("/", func(c *gin.Context) {
-		// Render the "index.html" file
 		c.HTML(200, "index.html", nil)
 	})
 	// Group API routes under /api/v1
@@ -28,10 +27,11 @@ func SetupRouter() *gin.Engine {
 				"message": message,
 			})
 		})
-		// Register player routes
+
 		player.RegisterPlayerRoutes(api)
 		notification.NotificationRoutes(api)
 		farm.FarmRoutes(api)
+		global.GlobalRoutes(api)
 	}
 
 	return r

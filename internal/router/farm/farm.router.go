@@ -7,5 +7,5 @@ import (
 )
 
 func FarmRoutes(r *gin.RouterGroup) {
-	r.GET("/farm-data", controller.GetFarmData)
+	r.POST("/farm-data", controller.GetFarmData)
 }
