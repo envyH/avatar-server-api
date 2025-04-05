@@ -25,12 +25,12 @@ func TrainCaptcha(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return
 	}
-	filePathImg, filePathCaptcha, err := service.TrainCaptcha(param.Uid, param.Data, param.Captcha)
+	filePathImg, _, err := service.TrainCaptcha(param.Uid, param.Data, param.Captcha)
 	if err != nil {
 		fmt.Println("Lỗi khi lưu file:", err)
 	} else {
 		fmt.Println("Ảnh đã được lưu tại:", filePathImg)
-		fmt.Println("Captcha đã được lưu tại:", filePathCaptcha)
+		// fmt.Println("Captcha đã được lưu tại:", filePathCaptcha)
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "send success"})
 }

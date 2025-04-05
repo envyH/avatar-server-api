@@ -4,12 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avatar 258 Mod by Envy</title>
-    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>{{ .title }}</title>
+    <link rel="icon" href="/favicon.ico" type="image/png">
 </head>
 
 <body>
-    <h1>Welcome to the Avatar Game API!</h1>
+    <div style="display: flex;align-items: center; gap: 10px;">
+        <img src="/assets/icon.png" alt="icon_avatar">
+        <h1>{{ .message }}</h1>
+    </div>
+
+    <!-- CHANGELOG -->
+    <div>
+        <div>
+            {{ .changelog | safeHTML }}
+        </div>
+    </div>
+    <!-- READ ME -->
+    <div>
+        <div>
+            {{ .readme | safeHTML }}
+        </div>
+    </div>
 </body>
 
 </html>

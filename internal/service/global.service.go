@@ -14,25 +14,35 @@ func TrainCaptcha(uid int32, data []byte, captcha string) (string, string, error
 		return "", "", err
 	}
 
-	// Tạo tên file dựa trên timestamp
-	filename := time.Now().UnixNano()
-	filenameImg := fmt.Sprintf("%d.png", filename)
-	filenameCaptcha := fmt.Sprintf("%d.txt", filename)
+	filenameBase := captcha
+	filenameImg := fmt.Sprintf("%s.png", filenameBase)
+	// filenameCaptcha := fmt.Sprintf("%s.txt", filenameBase)
 	filePathImg := filepath.Join(dir, filenameImg)
-	filePathCaptcha := filepath.Join(dir, filenameCaptcha)
+	// filePathCaptcha := filepath.Join(dir, filenameCaptcha)
 
-	// Ghi dữ liệu vào file
+	// Check if files exist and modify the name if necessary
+	for i := 1; ; i++ {
+		if _, err := os.Stat(filePathImg); os.IsNotExist(err) {
+			break
+		}
+		filenameImg = fmt.Sprintf("%s_%d.png", filenameBase, i)
+		// filenameCaptcha = fmt.Sprintf("%s_%d.txt", filenameBase, i)
+		filePathImg = filepath.Join(dir, filenameImg)
+		// filePathCaptcha = filepath.Join(dir, filenameCaptcha)
+	}
+
 	err = os.WriteFile(filePathImg, data, 0644)
 	if err != nil {
 		return "", "", err
 	}
 
-	err = os.WriteFile(filePathCaptcha, []byte(captcha), 0644)
-	if err != nil {
-		return "", "", err
-	}
+	// err = os.WriteFile(filePathCaptcha, []byte(captcha), 0644)
+	// if err != nil {
+	// 	return "", "", err
+	// }
 
-	return filePathImg, filePathCaptcha, nil
+	// return filePathImg, filePathCaptcha, nil
+	return filePathImg, "", nil
 }
 
 func SaveImage(uid int32, data []byte) (string, error) {
