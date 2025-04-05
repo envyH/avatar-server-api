@@ -11,7 +11,7 @@ import (
 func GetPlayers(c *gin.Context) {
 	players, err := service.GetAllPlayers()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Lỗi truy vấn"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Lỗi truy vấn: " + err.Error()})
 		return
 	}
 
@@ -25,12 +25,12 @@ func UpdateScore(c *gin.Context) {
 		Score int `json:"score"`
 	}
 	if err := c.ShouldBindJSON(&data); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Dữ liệu không hợp lệ"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dữ liệu không hợp lệ: " + err.Error()})
 		return
 	}
 
 	if err := service.UpdatePlayerScore(data.ID, data.Score); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Lỗi cập nhật điểm"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Lỗi cập nhật điểm: " + err.Error()})
 		return
 	}
 

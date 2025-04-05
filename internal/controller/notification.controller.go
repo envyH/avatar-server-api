@@ -19,7 +19,7 @@ func GetNotification(c *gin.Context) {
 	}
 	notification, err := service.GetNotification(param.Key)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Lỗi truy vấn"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Lỗi truy vấn: " + err.Error()})
 		return
 	}
 
