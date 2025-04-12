@@ -8,9 +8,11 @@ import (
 )
 
 type Config struct {
-	APIURL string
-	APIKey string
-	DBURL  string
+	GIN_MODE    string
+	APIURL      string
+	APIKey      string
+	DBURL       string
+	NEON_DB_URL string
 }
 
 func LoadConfig() Config {
@@ -22,9 +24,12 @@ func LoadConfig() Config {
 		}
 	}
 
+	// fmt.Println("🚀 Đang tải cấu hình từ biến môi trường...", os.Getenv("NEON_DB_URL"))
 	return Config{
-		APIURL: os.Getenv("API_URL"),
-		APIKey: os.Getenv("API_KEY"),
-		DBURL:  os.Getenv("DB_URL"),
+		GIN_MODE:    os.Getenv("GIN_MODE"),
+		APIURL:      os.Getenv("API_URL"),
+		APIKey:      os.Getenv("API_KEY"),
+		DBURL:       os.Getenv("DB_URL"),
+		NEON_DB_URL: os.Getenv("NEON_DB_URL"),
 	}
 }

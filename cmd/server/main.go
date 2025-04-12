@@ -17,7 +17,7 @@ func main() {
 	defer db.CloseDB()
 
 	// Setup router
-	r := router.SetupRouter()
+	r := router.SetupRouter(cfg.GIN_MODE)
 
 	// Start server
 	port := os.Getenv("PORT")

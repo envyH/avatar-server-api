@@ -13,7 +13,8 @@ import (
 )
 
 // SetupRouter initializes and returns the router
-func SetupRouter() *gin.Engine {
+func SetupRouter(ginMode string) *gin.Engine {
+	gin.SetMode(ginMode)
 	r := gin.Default()
 
 	// Define a custom function to safely render HTML
