@@ -31,6 +31,6 @@
 
 #### Liên hệ: 
 <a href="https://www.facebook.com/vung.tc10" target="blank"><img src="assets/facebook.png" alt="vungnv99" height="48" width="48" />
-<img src="assets/telegram.png" alt="@vungnguyenn" height="48" width="48" />
+<a href="https://t.me/vungtc" target="blank"><img src="assets/telegram.png" alt="@vungnguyenn" height="48" width="48" />
 <br>
-<img src="assets/qrmb.jpg">
+<img href="#" src="assets/qrmb.jpg" target="blank">

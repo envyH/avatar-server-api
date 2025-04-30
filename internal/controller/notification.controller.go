@@ -17,7 +17,7 @@ func GetNotification(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return
 	}
-	notification, err := service.GetNotification(param.Key)
+	notification, err := service.GetNotification(param.Key, true)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Lỗi truy vấn: " + err.Error()})
 		return

@@ -9,6 +9,39 @@
 </head>
 
 <body>
+    <h3>Nhập thời gian:</h3>
+    <label>Ngày: <input type="number" id="days" min="0"></label>
+    <label>Giờ: <input type="number" id="hours" min="0"></label>
+    <label>Phút: <input type="number" id="minutes" min="0"></label>
+    <label>Giây: <input type="number" id="seconds" min="0"></label>
+
+    <br><br>
+    <button onclick="convert()">Chuyển đổi</button>
+
+    <div class="output" id="result"></div>
+
+    <script>
+        function convert() {
+            const d = parseInt(document.getElementById('days').value) || 0;
+            const h = parseInt(document.getElementById('hours').value) || 0;
+            const m = parseInt(document.getElementById('minutes').value) || 0;
+            const s = parseInt(document.getElementById('seconds').value) || 0;
+
+            // Tổng số giây
+            let totalSeconds = d * 86400 + h * 3600 + m * 60 + s;
+
+            // Chuyển ngược lại ra ngày, giờ, phút, giây
+            const days = Math.floor(totalSeconds / 86400);
+            totalSeconds %= 86400;
+            const hours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            document.getElementById('result').textContent =
+                `Kết quả: ${days} ngày, ${hours} giờ, ${minutes} phút, ${seconds} giây`;
+        }
+    </script>
     <div style="display: flex;align-items: center; gap: 10px;">
         <img src="/assets/icon.png" alt="icon_avatar">
         <h1>{{ .message }}</h1>

@@ -5,6 +5,11 @@
 
 
 
+### [01/05/2025](https://github.com/vungnv10103/ServerAvatar258)
+
+- [avatar/02:35](https://github.com/vungnv10103/ServerAvatar258/issues) add `sync animal farm`, crawl `Image`, `Icon` in client, add test `text generate` with `GenimiAI`.
+
+
 ### [06/04/2025](https://github.com/vungnv10103/ServerAvatar258)
 
 - [avatar/00:10](https://github.com/vungnv10103/ServerAvatar258/issues) update `save captcha`, update `index.html`.

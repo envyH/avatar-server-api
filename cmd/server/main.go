@@ -25,5 +25,5 @@ func main() {
 		port = "8080"
 	}
 	fmt.Printf("🚀 Server chạy trên cổng %s\n", port)
-	r.Run(":" + port) // Gin's built-in method to start the server
+	r.Run(":" + port)
 }

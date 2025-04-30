@@ -8,4 +8,5 @@ import (
 
 func FarmRoutes(r *gin.RouterGroup) {
 	r.POST("/farm-data", controller.GetFarmData)
+	r.POST("/farm-sync/animal", controller.SyncAnimal)
 }

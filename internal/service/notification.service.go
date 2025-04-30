@@ -5,7 +5,10 @@ import (
 	"context"
 )
 
-func GetNotification(key string) (string, error) {
+func GetNotification(key string, isLocal bool) (string, error) {
+	if isLocal {
+		return "Avatar 258 thuộc bản quyền TeaMobi, được mod lại bởi Envy!", nil
+	}
 	rows, err := db.GetDB().Query(context.Background(), "SELECT value FROM notifications WHERE key = $1", key)
 	if err != nil {
 		return "", err
