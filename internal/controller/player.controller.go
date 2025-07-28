@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func Test(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "Test API is working!"})
+}
+
 // GetPlayers handles the request to retrieve all players
 func GetPlayers(c *gin.Context) {
 	players, err := service.GetAllPlayers()

@@ -12,4 +12,6 @@ func GlobalRoutes(r *gin.RouterGroup) {
 	r.POST("/dialog/input/answer", controller.GetAnswerInputDlg)
 	r.POST("/crawl/icon", controller.CrawlIcon)
 	r.POST("/crawl/image", controller.CrawlImage)
+	r.POST("/image/test", controller.CrawlImage)
+	r.POST("/qr/create", controller.CreateQRcode)
 }

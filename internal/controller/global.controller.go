@@ -81,6 +81,7 @@ func GetAnswerInputDlg(c *gin.Context) {
 
 type Byte2ImageRequest struct {
 	Uid  int32   `json:"uid" binding:"required"`
+	Id   int32   `json:"id" binding:"required"`
 	Data []uint8 `json:"data" binding:"required"`
 }
 
@@ -112,11 +113,31 @@ func Byte2Image(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return
 	}
-	filePath, err := service.SaveOtherImage(param.Uid, param.Data)
+	filePath, err := service.SaveImageCrawl(param.Uid, param.Id, param.Data)
 	if err != nil {
 		fmt.Println("Lỗi khi lưu ảnh:", err)
 	} else {
 		fmt.Println("Ảnh đã được lưu tại:", filePath)
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "send success"})
+}
+
+type CreateQRcodeRequest struct {
+	Width  int    `json:"width" binding:"required"`
+	Height int    `json:"height" binding:"required"`
+	Url    string `json:"url" binding:"required"`
+}
+
+func CreateQRcode(c *gin.Context) {
+	var param CreateQRcodeRequest
+	if err := c.ShouldBindJSON(&param); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		return
+	}
+
+	_, dataByte, err := service.CreateQRcode(param.Url, param.Width, param.Height)
+	if err != nil {
+		fmt.Println("ERROR CreateQRcode", err)
+	}
+	c.JSON(http.StatusOK, gin.H{"data": dataByte})
 }

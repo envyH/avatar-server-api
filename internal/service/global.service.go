@@ -3,9 +3,11 @@ package service
 import (
 	"bytes"
 	"fmt"
+	"image/png"
 	"os"
 	"path/filepath"
-	"time"
+
+	"github.com/skip2/go-qrcode"
 )
 
 func TrainCaptcha(uid int32, data []byte, captcha string) (string, string, error) {
@@ -46,15 +48,16 @@ func TrainCaptcha(uid int32, data []byte, captcha string) (string, string, error
 	return filePathImg, "", nil
 }
 
-func SaveOtherImage(uid int32, data []byte) (string, error) {
-	dir := filepath.Join("upload/other", fmt.Sprintf("%d", uid))
+func SaveImageCrawl(uid, id int32, data []byte) (string, error) {
+	dir := filepath.Join("upload/crawl", fmt.Sprintf("%d", uid))
 	err := os.MkdirAll(dir, os.ModePerm)
 	if err != nil {
 		return "", err
 	}
 
 	// Tạo tên file dựa trên timestamp
-	filename := fmt.Sprintf("%d.png", time.Now().UnixNano())
+	// filename := fmt.Sprintf("%d.png", time.Now().UnixNano())
+	filename := fmt.Sprintf("%d.png", id)
 	filePath := filepath.Join(dir, filename)
 
 	// Ghi dữ liệu vào file
@@ -190,4 +193,39 @@ func SaveIcon(uid int32, iconId int16, data []byte) (string, bool, error) {
 	}
 
 	return absPath, true, nil
+}
+
+func CreateQRcode(url string, width, height int) (string, []byte, error) {
+	// Tạo mã QR dưới dạng ảnh image.Image
+	qrCode, err := qrcode.New(url, qrcode.Medium)
+	if err != nil {
+		fmt.Println("Lỗi tạo mã QR:", err)
+		return "", nil, fmt.Errorf("lỗi tạo mã QR %w", err)
+	}
+	imgWidth := width / 3
+	if imgWidth > 100 {
+		imgWidth = 100
+	} else if imgWidth < 72 {
+		imgWidth = 72
+	}
+	img := qrCode.Image(imgWidth)
+
+	// Mã QR sẽ được ghi vào một buffer trong bộ nhớ
+	var buf bytes.Buffer
+	err = png.Encode(&buf, img)
+	if err != nil {
+		fmt.Println("Lỗi mã hóa ảnh PNG:", err)
+		return "", nil, fmt.Errorf("lỗi mã hóa ảnh PNG %w", err)
+	}
+
+	// Lấy mảng byte từ buffer
+	imageData := buf.Bytes()
+
+	err = os.WriteFile("qrcode.png", imageData, 0644)
+	if err != nil {
+		fmt.Println("Lỗi lưu file PNG:", err)
+		return "", imageData, fmt.Errorf("lỗi lưu file PNG %w", err)
+	}
+
+	return "qrcode.png", imageData, nil
 }
